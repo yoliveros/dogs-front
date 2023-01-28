@@ -11,20 +11,28 @@
     Name: '',
     Owner: '',
     Breed: '',
-    Age: ''
+    Age: 0
   }
 
-  const handleSubmit = () => {
-    axios.post(URL).then(response => console.log(response))
+  const handleSubmit = event => {
+    console.log(newDog)
+    axios.post(URL, newDog).then(response => console.log(response))
+
+    event.target.reset
   }
 </script>
 
 <form on:submit|preventDefault={handleSubmit} class="mb-10">
-  <inputs class="grid gap-4 mb-6 md:grid-cols-2">
-    <Input id="name" label="Name" bind:value={newDog.Name} />
-    <Input id="owner" label="Owner" bind:value={newDog.Owner} />
-    <Input id="age" label="Age" bind:value={newDog.Age} />
-    <Input id="breed" label="Breed" bind:value={newDog.Breed} />
+  <inputs class="mb-6 flex flex-col gap-4">
+    <Input id="name" label="Name" bind:value={newDog.Name} required />
+    <Input id="owner" label="Owner" bind:value={newDog.Owner} required />
+    <Input id="age" label="Age" bind:value={newDog.Age} required />
+    <Input id="breed" label="Breed" bind:value={newDog.Breed} required />
   </inputs>
-  <button class="bg-sky-800 h-10 w-1/4" type="submit">Add</button>
+  <button
+    class="w-full focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
+    data-modal-hide="dogs-modal"
+    type="submit"
+    >Add
+  </button>
 </form>

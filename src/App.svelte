@@ -3,6 +3,6 @@
   import Dogs from './lib/Dogs.svelte'
 </script>
 
-<main class="bg-slate-600 text-white flex justify-center">
+<main class="bg-slate-900 text-white flex justify-center">
   <Dogs />
 </main>

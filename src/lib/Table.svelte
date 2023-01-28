@@ -12,22 +12,24 @@
   })
 </script>
 
-<table class="w-full">
-  <thead>
+<table class="w-full text-sm text-left  text-gray-400">
+  <thead class="text-xs uppercase bg-gray-700 text-gray-400">
     <tr>
-      <th>Name</th>
-      <th>Owner</th>
-      <th>Age</th>
-      <th>Breed</th>
+      <th scope="col" class="px-6 py-3">Name</th>
+      <th scope="col" class="px-6 py-3">Owner</th>
+      <th scope="col" class="px-6 py-3">Age</th>
+      <th scope="col" class="px-6 py-3">Breed</th>
+      <th scope="col" class="px-6 py-3">Actions</th>
     </tr>
   </thead>
   <tbody>
     {#each dogsArray as dog}
-      <tr>
-        <td>{dog.Name}</td>
-        <td>{dog.Owner}</td>
-        <td>{dog.Age}</td>
-        <td>{dog.Breed}</td>
+      <tr class="border-b bg-gray-800 border-gray-700">
+        <td class="px-6 py-4">{dog.Name}</td>
+        <td class="px-6 py-4">{dog.Owner}</td>
+        <td class="px-6 py-4">{dog.Age}</td>
+        <td class="px-6 py-4">{dog.Breed}</td>
+        <td class="px-6 py-4"> X </td>
       </tr>
     {/each}
   </tbody>
