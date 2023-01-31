@@ -14,11 +14,21 @@
     Age: 0
   }
 
-  const handleSubmit = event => {
-    console.log(newDog)
-    axios.post(URL, newDog).then(response => console.log(response))
-
-    event.target.reset
+  const handleSubmit = () => {
+    axios
+      .post(URL, newDog)
+      .then(() => {
+        alert('New dog added')
+        document.getElementById('close-modal').click
+        newDog = {
+          Id: '',
+          Name: '',
+          Owner: '',
+          Breed: '',
+          Age: 0
+        }
+      })
+      .catch(err => alert(err.message))
   }
 </script>
 
@@ -33,6 +43,7 @@
     class="w-full focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800"
     data-modal-hide="dogs-modal"
     type="submit"
-    >Add
+  >
+    Add
   </button>
 </form>
