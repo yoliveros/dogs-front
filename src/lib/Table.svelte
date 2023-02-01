@@ -5,17 +5,19 @@
   import type Dog from './Dog'
   let dogsArray: Dog[] = []
 
-  onMount(() => {
+  const getDogs = () => {
     axios.get<Dog[]>(URL).then(({ data }) => {
       dogsArray = data
     })
+  }
+
+  onMount(() => {
+    getDogs()
   })
 
-  const handleEdit = (dog: Dog) => {
-    document.getElementById('open-modal').click
-  }
   const handleDelete = (id: string) => {
     axios.delete(`${URL}/${id}`).then(() => {
+      getDogs()
       alert('Dog deleted')
     })
   }
