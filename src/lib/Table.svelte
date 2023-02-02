@@ -1,19 +1,36 @@
+<script context="module" lang="ts">
+  import { writable } from 'svelte/store'
+  let dogsArray = writable<Dog[]>([])
+  export const getDogs = () => {
+    axios.get<Dog[]>(URL).then(({ data }) => {
+      dogsArray.set(data)
+    })
+  }
+</script>
+
 <script lang="ts">
   import { onMount } from 'svelte'
   import axios from 'axios'
   import { URL } from './utils'
   import type Dog from './Dog'
-  let dogsArray: Dog[] = []
+  import Modal from './Modal.svelte'
+  import Form from './Form.svelte'
 
-  const getDogs = () => {
-    axios.get<Dog[]>(URL).then(({ data }) => {
-      dogsArray = data
-    })
+  let setDog: Dog = {
+    Id: '',
+    Name: '',
+    Owner: '',
+    Breed: '',
+    Age: 0
   }
 
   onMount(() => {
     getDogs()
   })
+
+  const handleEdit = (dog: Dog) => {
+    setDog = dog
+  }
 
   const handleDelete = (id: string) => {
     axios.delete(`${URL}/${id}`).then(() => {
@@ -34,17 +51,19 @@
     </tr>
   </thead>
   <tbody>
-    {#each dogsArray as dog}
+    {#each $dogsArray as dog}
       <tr class="border-b bg-gray-800 border-gray-700">
         <td class="px-6 py-4">{dog.Name}</td>
         <td class="px-6 py-4">{dog.Owner}</td>
         <td class="px-6 py-4">{dog.Age}</td>
         <td class="px-6 py-4">{dog.Breed}</td>
         <td class="px-6 py-4 flex gap-2 h-14">
-          <!-- <svg
+          <svg
             class="cursor-pointer"
             on:click={() => handleEdit(dog)}
             on:keydown={() => handleEdit(dog)}
+            data-modal-target="modal-edit"
+            data-modal-toggle="modal-edit"
             fill="none"
             stroke="currentColor"
             stroke-width="1.5"
@@ -57,7 +76,7 @@
               stroke-linejoin="round"
               d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
             />
-          </svg> -->
+          </svg>
           <svg
             class="cursor-pointer"
             on:click={() => handleDelete(dog.Id)}
@@ -80,3 +99,5 @@
     {/each}
   </tbody>
 </table>
+
+<Modal isEdit dogState={setDog} />
