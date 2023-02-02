@@ -1,7 +1,6 @@
 <script lang="ts">
   import Table from './Table.svelte'
   import Modal from './Modal.svelte'
-  import Form from './Form.svelte'
 </script>
 
 <section class="h-[100vh] w-[50vw] p-10 ">
